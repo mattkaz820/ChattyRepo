@@ -28,6 +28,11 @@ public class ChatterClient
 		
 	}
 	
+	public ChatterClient()
+	{
+		
+	}
+	
 	
 	
 }
