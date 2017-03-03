@@ -9,5 +9,5 @@ import java.io.*;
 public class ChatterClient
 {
 
-
+	int test = 100;
 }
