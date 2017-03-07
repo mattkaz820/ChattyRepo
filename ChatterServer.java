@@ -10,12 +10,35 @@ public class ChatterServer
 	//this object stores the addresses of every ServerListens class
 	//that gets instantiated
 	LinkedList chatting;
+	ServerSocket sock; 
+	int portNum;
+	boolean sillChattin = true;
+	
+	public ChatterServer(String p) throws IOException
+	{
+		portNum = Integer.parseInt(p); 
+		sock = new ServerSocket(portNum); //initializes and makes a socket
+	}
+	
+	public static void main( String[] args ) throws IOException //args[0] holds the one command line arg we require
+	   {
+		   	new ChatterServer(args[0]);
+	   }
 	
 	
 	//this function opens the socket and waits for the call
 	public void answerThePhone()
 	{
-		
+		 System.out.println("date server starting ...");
+	      try
+	      { 
+	            Socket client = sock.accept(); // this blocks until a client calls  (waiting)     
+	            System.out.println("DateServer: accepts client connection ");
+	            //NEED TO ADD THIS CLIENT TO THE LINKEDLIST
+	            
+	      }
+	      catch( Exception e ) { System.err.println("DateServer: error = "+e); }      
+	      System.exit(0);
 	}
 
 	
