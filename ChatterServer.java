@@ -9,10 +9,10 @@ public class ChatterServer
 	
 	//this object stores the addresses of every ServerListens class
 	//that gets instantiated
-	LinkedList chatting;
+	LinkedList<ServerListens> chatting;
 	ServerSocket sock; 
 	int portNum;
-	boolean sillChattin = true;
+	boolean stillChattin = true;
 	
 	public ChatterServer(String p) throws IOException
 	{
