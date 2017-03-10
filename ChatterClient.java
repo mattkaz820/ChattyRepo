@@ -5,20 +5,34 @@ import java.net.*;
 import java.io.*;
 import java.util.*;
 
-import DateDemo.DateClient;
-
 
 
 public class ChatterClient
 {
-	//dadsf
+	
 	//holds the client's nickname
 	String nickname;
 	Socket sock;
 	
 	public ChatterClient(String h, int p) throws IOException
 	{
-		sock = new Socket(h,p);
+		
+		try
+		{
+			sock = new Socket(h,p);
+			
+			//prompt for nickname
+			System.out.println("What is your preferred nickname?");
+			InputStreamReader in = new InputStreamReader(System.in); //reads from user
+			BufferedReader bin = new BufferedReader( in ); //makes new BR for it
+			
+			
+			nickname = bin.readLine();
+			sock.close();
+		}
+		catch( IOException ioe )
+		{ System.err.println(ioe); }
+		
 	}
 	
 	//waits for the user to type something and when "enter" is hit it sends
@@ -39,6 +53,8 @@ public class ChatterClient
 	public static void main( String[] args ) throws RuntimeException, IOException // throws IOException
 	   {
 		   new ChatterClient(args[0],Integer.parseInt(args[1]));
+		   //first argument is hostname of server, second is port number
+		   
 	   }
 	
 	
