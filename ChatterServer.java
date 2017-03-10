@@ -1,9 +1,10 @@
 package ChattyRepo;
+//ChatterServer.java
 
 import java.net.*;
 import java.util.*;
 import java.io.*;
-//TEST FROM KAZ
+
 public class ChatterServer
 {
 	
@@ -18,11 +19,19 @@ public class ChatterServer
 	{
 		portNum = Integer.parseInt(p); 
 		sock = new ServerSocket(portNum); //initializes and makes a socket
+		
+		//listen for connections
+		while(stillChattin)
+		{
+			answerThePhone();
+		}
 	}
 	
 	public static void main( String[] args ) throws IOException //args[0] holds the one command line arg we require
 	   {
 		   	new ChatterServer(args[0]);
+		   	
+		   	
 	   }
 	
 	
@@ -34,6 +43,7 @@ public class ChatterServer
 	      { 
 	            Socket client = sock.accept(); // this blocks until a client calls  (waiting)     
 	            System.out.println("DateServer: accepts client connection ");
+	            
 	            //NEED TO ADD THIS CLIENT TO THE LINKEDLIST
 	            
 	      }
