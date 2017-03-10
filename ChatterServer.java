@@ -26,6 +26,7 @@ public class ChatterServer
 		{
 			answerThePhone();
 		}
+		sock.close();
 	}
 	
 	public static void main( String[] args ) throws IOException //args[0] holds the one command line arg we require
@@ -47,7 +48,7 @@ public class ChatterServer
 	            
 	            
 	            
-	            
+	            client.close();
 	      }
 	      catch( Exception e ) { System.err.println("DateServer: error = "+e); }      
 	      System.exit(0);
