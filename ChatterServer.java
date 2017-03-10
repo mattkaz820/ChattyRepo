@@ -19,6 +19,7 @@ public class ChatterServer
 	{
 		portNum = Integer.parseInt(p); 
 		sock = new ServerSocket(portNum); //initializes and makes a socket
+		chatting = new LinkedList<ServerListens>();
 		
 		//listen for connections
 		while(stillChattin)
@@ -44,7 +45,10 @@ public class ChatterServer
 	            Socket client = sock.accept(); // this blocks until a client calls  (waiting)     
 	            System.out.println("DateServer: accepts client connection ");
 	            
-	            //NEED TO ADD THIS CLIENT TO THE LINKEDLIST
+	            ServerListens person = new ServerListens( client ); //this will create a new ServerListens object for client
+	            chatting.add(person); //adds this object to the linked list
+	            
+	            
 	            
 	      }
 	      catch( Exception e ) { System.err.println("DateServer: error = "+e); }      
@@ -55,6 +59,16 @@ public class ChatterServer
 	//subclass that waits for response from others for each client
 	public class ServerListens
 	{
+		Socket client; //Socket to hold the client info
+		
+		
+		
+		public ServerListens(Socket c)
+		{
+			client = c;
+			
+		}
+		
 		
 	}
 	
