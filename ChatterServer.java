@@ -45,8 +45,6 @@ public class ChatterServer
 	            Socket client = sock.accept(); // this blocks until a client calls  (waiting)     
 	            System.out.println("DateServer: accepts client connection ");
 	            
-	            ServerListens person = new ServerListens( client ); //this will create a new ServerListens object for client
-	            chatting.add(person); //adds this object to the linked list
 	            
 	            
 	            
@@ -61,11 +59,13 @@ public class ChatterServer
 	{
 		Socket client; //Socket to hold the client info
 		
+		String nick; //Name of client
 		
 		
-		public ServerListens(Socket c)
+		
+		public ServerListens()
 		{
-			client = c;
+			
 			
 		}
 		
