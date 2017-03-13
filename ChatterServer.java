@@ -47,9 +47,10 @@ public class ChatterServer
 	            Socket client = sock.accept(); // this blocks until a client calls  (waiting)     
 	            System.out.println("DateServer: accepts client connection ");
 	            
+	            ServerListens current = new ServerListens( client );
 	            
 	            
-	            client.close();
+	            
 	      }
 	      catch( Exception e ) { System.err.println("DateServer: error = "+e); }      
 	      System.exit(0);
@@ -61,12 +62,27 @@ public class ChatterServer
 	{
 		Socket client; //Socket to hold the client info
 		String nick; //Name of client
+		Boolean thing;
 		
 		
-		
-		public ServerListens()
+		public ServerListens(Socket c)
 		{
+			client = c;
+			thing = true;
 			
+			try{
+			
+				while(thing)
+				{
+				
+				}
+			c.close();
+			
+			}
+			catch( IOException e )
+			{
+				System.out.println("Problem in ServerListens Constructor: " + e);
+			}
 			
 		}
 		
@@ -83,13 +99,14 @@ public class ChatterServer
 	//needs to be synchronized
 	//must go to every client
 	//opens a Writer to write to ClientListens
-	public void tellOthers()
+	
+	public synchronized void tellOthers()
 	{
 		
 	}
 	
 	//function that will direct message only one other client by nickname
-	public void tellOnePerson(String name)
+	public synchronized void tellOnePerson(String name)
 	{
 		
 	}
