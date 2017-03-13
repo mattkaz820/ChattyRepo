@@ -81,7 +81,7 @@ public class ChatterServer
 			}
 			catch( IOException e )
 			{
-				System.out.println("Problem in ServerListens Constructor" + e);
+				System.out.println("Problem in ServerListens Constructor: " + e);
 			}
 			
 		}
