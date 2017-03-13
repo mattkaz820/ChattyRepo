@@ -99,13 +99,14 @@ public class ChatterServer
 	//needs to be synchronized
 	//must go to every client
 	//opens a Writer to write to ClientListens
-	public void tellOthers()
+	
+	public synchronized void tellOthers()
 	{
 		
 	}
 	
 	//function that will direct message only one other client by nickname
-	public void tellOnePerson(String name)
+	public synchronized void tellOnePerson(String name)
 	{
 		
 	}
