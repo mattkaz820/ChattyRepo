@@ -25,6 +25,7 @@ public class ChatterServer
 		while(stillChattin)
 		{
 			answerThePhone();
+			//Add client obj to LL
 		}
 		sock.close();
 	}
@@ -56,10 +57,9 @@ public class ChatterServer
 
 	
 	//subclass that waits for response from others for each client
-	public class ServerListens
+	public class ServerListens extends Thread 
 	{
 		Socket client; //Socket to hold the client info
-		
 		String nick; //Name of client
 		
 		
@@ -70,6 +70,12 @@ public class ChatterServer
 			
 		}
 		
+		@Override
+		public void run()
+		{
+			//everytime this runs, that object.start
+			
+		}
 		
 	}
 	
