@@ -21,6 +21,7 @@ public class ChatterServer
 		sock = new ServerSocket(portNum); //initializes and makes a socket
 		chatting = new LinkedList<ServerListens>();
 		System.out.println("Server starting ...");
+		
 		//listen for connections
 		while(stillChattin)
 		{
@@ -44,9 +45,10 @@ public class ChatterServer
 	      try
 	      { 
 	            Socket client = sock.accept(); // this blocks until a client calls  (waiting)     
-	            System.out.println("DateServer: accepts client connection ");
+	            System.out.println("Server: accepts client connection");
 	            
 	            ServerListens current = new ServerListens( client );
+	            current.start();
 	            
 	            
 	            
@@ -68,19 +70,6 @@ public class ChatterServer
 		{
 			client = c;
 			
-			try{
-			
-				while(clientOnline)
-				{
-				
-				}
-			c.close();
-			
-			}
-			catch( IOException e )
-			{
-				System.out.println("Problem in ServerListens Constructor: " + e);
-			}
 			
 		}
 		
@@ -88,6 +77,21 @@ public class ChatterServer
 		public void run()
 		{
 			//everytime this runs, that object.start
+			try{
+				
+				while(clientOnline)
+				{
+					
+					
+				
+				}
+			
+			
+			}
+			catch( IOException e )
+			{
+				System.out.println("Problem in ServerListens Constructor: " + e);
+			}
 			
 		}
 		
