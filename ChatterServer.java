@@ -81,10 +81,33 @@ public class ChatterServer
 				
 				while(clientOnline)
 				{
+					InputStream in = client.getInputStream();
+					Scanner sc = new Scanner( in );
+					String first = sc.next();
+					
+					if( first.equals("/nick") )
+					{
+						nick = sc.next();
+					}
+					else if( first.equals("/dm") )
+					{
+						tellOnePerson( nick, sc.next(), sc.nextLine() );
+					}
+					else if( first.equals("/quit") )
+					{
+						clientOnline = false;
+					}
+					else
+					{
+						String all = first + " " + sc.nextLine();
+						tellOthers( nick, all);
+					}
 					
 					
-				
+					
+					sc.close();
 				}
+				client.close();
 			
 			
 			}
@@ -102,13 +125,13 @@ public class ChatterServer
 	//must go to every client
 	//opens a Writer to write to ClientListens
 	
-	public synchronized void tellOthers()
+	public synchronized void tellOthers(String sender, String msg)
 	{
 		
 	}
 	
 	//function that will direct message only one other client by nickname
-	public synchronized void tellOnePerson(String name)
+	public synchronized void tellOnePerson(String sender, String name, String msg)
 	{
 		
 	}
