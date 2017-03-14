@@ -60,6 +60,7 @@ public class ChatterClient
 		
 		String input = bin.readLine();
 		
+		System.out.println("Input is: " + input);
 		
 		if(input.contains("/nick"))
 		{

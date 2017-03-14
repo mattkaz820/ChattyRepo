@@ -96,32 +96,38 @@ public class ChatterServer
 		@Override
 		public void run()
 		{
+			System.out.println("in run");
 			//everytime this runs, that object.start
 			try{
 				
 				while(clientOnline)
 				{
-					InputStream in = client.getInputStream();
-					Scanner sc = new Scanner( in );
+					//InputStream in = client.getInputStream();
+					//Scanner sc = new Scanner( in );
 					
-					String first = sc.nextLine();
+					//String first = sc.nextLine();
+					//System.out.println("this is first: " + first);
 					
-					if( first.equals("/nick") )
+					InputStreamReader in = new InputStreamReader(client.getInputStream()); //reads from user
+					BufferedReader bin = new BufferedReader( in ); //makes new BR for it
+					
+					String first = bin.readLine();
+					
+					if( first.contains("/nick") )
 					{
-						nick = sc.next();
+					//	nick = sc.next();
 					}
-					else if( first.equals("/dm") )
+					else if( first.contains("/dm") )
 					{
-						tellOnePerson( nick, sc.next(), sc.nextLine() );
+						//tellOnePerson( nick, sc.next(), sc.nextLine() );
 					}
-					else if( first.equals("/quit") )
+					else if( first.contains("/quit") )
 					{
 						clientOnline = false;
 					}
 					else
 					{
-						String all = first + " " + sc.nextLine();
-						tellOthers( nick, all);
+						tellOthers( nick, first);
 					}
 					
 					
@@ -147,6 +153,7 @@ public class ChatterServer
 	//opens a Writer to write to ClientListens
 	public synchronized void tellOthers(String sender, String msg) throws IOException
 	{
+		System.out.println("in tellothers");
 		int size = chatting.size();
 		for( int i = 0; i < size; i++ )
 		{
