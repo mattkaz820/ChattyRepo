@@ -64,25 +64,30 @@ public class ChatterClient
 	//can extend thread or implement runnable
 	public class ClientListens extends Thread
 	{
+	
+		@Override
+		public void run()
+		{
+			try
+			{		
+				InputStream in = sock.getInputStream();
+				BufferedReader bin = new BufferedReader( new InputStreamReader(in) );
+				String line;
+				line = bin.readLine();
+				while( (line=bin.readLine()) != null )
+				{ 
+					System.out.println(nickname+ ":" + " " + line);
+		        }	
+		         	
+		         sock.close();
+		      }	
+		      catch ( IOException ioe )
+		      { 	
+		    	  System.err.println(ioe); 
+		      }	
+		}
 		
-		//TEST
-		try
-		{		
-			InputStream in = sock.getInputStream();
-			BufferedReader bin = new BufferedReader( new InputStreamReader(in) );
-			String line;
-			line = bin.readLine();
-			while( (line=bin.readLine()) != null )
-			{ 
-				System.out.println(nickname+ ":" + " " + line);
-	        }	
-	         	
-	         sock.close();
-	      }	
-	      catch ( IOException ioe )
-	      { 	
-	    	  System.err.println(ioe); 
-	      }	
+		
 	}	
 	
 	public static void main( String[] args ) throws RuntimeException, IOException // throws IOException
