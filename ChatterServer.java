@@ -71,7 +71,7 @@ public class ChatterServer
 		public ServerListens(Socket c)
 		{
 			client = c;
-			/*
+			
 			try{
 				
 				InputStream in = client.getInputStream();
@@ -88,7 +88,7 @@ public class ChatterServer
 			catch ( Exception e )
 			{
 				System.out.println("Problem in ServerListens Constructor: " + e);
-			}*/
+			}
 			
 		}
 		
