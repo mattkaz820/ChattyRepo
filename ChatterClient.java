@@ -58,8 +58,7 @@ public class ChatterClient
 		Scanner scan = new Scanner(System.in);
 		String input = scan.nextLine(); 
 		
-		String cmd = input.substring(0, input.indexOf(' ')-1);  
-		if(cmd.equals("/nick"))
+		if(input.contains("/nick"))
 		{
 			setNickname(input.substring(input.indexOf(' ')));
 		}
