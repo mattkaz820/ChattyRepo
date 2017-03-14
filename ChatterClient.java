@@ -64,6 +64,8 @@ public class ChatterClient
 	//can extend thread or implement runnable
 	public class ClientListens extends Thread
 	{
+		
+		//TEST
 		try
 		{		
 			InputStream in = sock.getInputStream();
