@@ -34,6 +34,13 @@ public class ChatterClient
 			
 			nickname = bin.readLine();
 			
+			 OutputStream out = sock.getOutputStream();
+	         BufferedWriter bout = new BufferedWriter( new OutputStreamWriter( out ) );
+	         bout.write(nickname);
+	         bout.flush();
+			
+			
+			
 		}
 		catch( IOException ioe )
 		{ System.err.println(ioe); }
