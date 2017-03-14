@@ -20,6 +20,7 @@ public class ChatterServer
 		portNum = Integer.parseInt(p); 
 		sock = new ServerSocket(portNum); //initializes and makes a socket
 		chatting = new LinkedList<ServerListens>();
+		System.out.println("Server starting ...");
 		
 		//listen for connections
 		while(stillChattin)
@@ -41,13 +42,13 @@ public class ChatterServer
 	//this function opens the socket and waits for the call
 	public void answerThePhone()
 	{
-		 System.out.println("date server starting ...");
 	      try
 	      { 
 	            Socket client = sock.accept(); // this blocks until a client calls  (waiting)     
-	            System.out.println("DateServer: accepts client connection ");
+	            System.out.println("Server: accepts client connection");
 	            
 	            ServerListens current = new ServerListens( client );
+	            current.start();
 	            
 	            
 	            
@@ -62,27 +63,13 @@ public class ChatterServer
 	{
 		Socket client; //Socket to hold the client info
 		String nick; //Name of client
-		Boolean thing;
+		Boolean clientOnline = true;
 		
 		
 		public ServerListens(Socket c)
 		{
 			client = c;
-			thing = true;
 			
-			try{
-			
-				while(thing)
-				{
-				
-				}
-			c.close();
-			
-			}
-			catch( IOException e )
-			{
-				System.out.println("Problem in ServerListens Constructor: " + e);
-			}
 			
 		}
 		
@@ -90,6 +77,44 @@ public class ChatterServer
 		public void run()
 		{
 			//everytime this runs, that object.start
+			try{
+				
+				while(clientOnline)
+				{
+					InputStream in = client.getInputStream();
+					Scanner sc = new Scanner( in );
+					String first = sc.next();
+					
+					if( first.equals("/nick") )
+					{
+						nick = sc.next();
+					}
+					else if( first.equals("/dm") )
+					{
+						tellOnePerson( nick, sc.next(), sc.nextLine() );
+					}
+					else if( first.equals("/quit") )
+					{
+						clientOnline = false;
+					}
+					else
+					{
+						String all = first + " " + sc.nextLine();
+						tellOthers( nick, all);
+					}
+					
+					
+					
+					sc.close();
+				}
+				client.close();
+			
+			
+			}
+			catch( IOException e )
+			{
+				System.out.println("Problem in ServerListens Constructor: " + e);
+			}
 			
 		}
 		
@@ -100,13 +125,13 @@ public class ChatterServer
 	//must go to every client
 	//opens a Writer to write to ClientListens
 	
-	public synchronized void tellOthers()
+	public synchronized void tellOthers(String sender, String msg)
 	{
 		
 	}
 	
 	//function that will direct message only one other client by nickname
-	public synchronized void tellOnePerson(String name)
+	public synchronized void tellOnePerson(String sender, String name, String msg)
 	{
 		
 	}

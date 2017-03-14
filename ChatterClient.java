@@ -4,12 +4,13 @@ package ChattyRepo;
 import java.net.*;
 import java.io.*;
 import java.util.*;
-
+import java.net.Socket;
 
 
 public class ChatterClient
 {
-	
+	//BufferedReader in;
+	//PrintWriter out;
 	//holds the client's nickname
 	String nickname;
 	Socket sock;
@@ -84,9 +85,11 @@ public class ChatterClient
 	
 	public static void main( String[] args ) throws RuntimeException, IOException // throws IOException
 	   {
-		   new ChatterClient(args[0],Integer.parseInt(args[1]));
+		   ChatterClient client = new ChatterClient(args[0],Integer.parseInt(args[1]));
+		   //client.ChatterClient();
 		   //first argument is hostname of server, second is port number
-		   
+		   //client is always listening (one thread)
+		   //client is always ready to send (second thread)
 	   }
 	
 		
