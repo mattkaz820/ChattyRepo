@@ -36,11 +36,11 @@ public class ChatterClient
 			
 			 OutputStream out = sock.getOutputStream();
 	         BufferedWriter bout = new BufferedWriter( new OutputStreamWriter( out ) );
-	         bout.write(nickname);
+	         bout.write(nickname + '\n');
 	         bout.flush();	
 	         while(!sock.isClosed())
 	         {
-	        	 bout.write(getUserInput());
+	        	 bout.write(getUserInput() + '\n');
 	        	 bout.flush();
 	         }
 	         
