@@ -105,17 +105,17 @@ public class ChatterServer
 					
 					//String first = bin.readLine();
 					
-					if( first.equals("/nick") )
+					if( first.contains("/nick") )
 					{
 						System.out.println("In nick if");
 						nick = sc.next();
 					}
-					else if( first.equals("/dm") )
+					else if( first.contains("/dm") )
 					{
 						System.out.println("In dm if");
 						tellOnePerson( nick, sc.next(), sc.nextLine() );
 					}
-					else if( first.equals("/quit") )
+					else if( first.contains("/quit") )
 					{
 						System.out.println("In quit if");
 						clientOnline = false;
