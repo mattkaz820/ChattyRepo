@@ -79,7 +79,8 @@ public class ChatterServer
 				nick = sc.next();
 				
 				
-				sc.close();
+				//sc.close();
+				
 			}
 			catch( IOException e )
 			{
@@ -102,6 +103,7 @@ public class ChatterServer
 				{
 					InputStream in = client.getInputStream();
 					Scanner sc = new Scanner( in );
+					
 					String first = sc.next();
 					
 					if( first.equals("/nick") )
@@ -124,7 +126,7 @@ public class ChatterServer
 					
 					
 					
-					sc.close();
+					//sc.close();
 				}
 				
 			
