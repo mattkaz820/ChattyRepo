@@ -71,13 +71,12 @@ public class ChatterServer
 		public ServerListens(Socket c)
 		{
 			client = c;
-			
+			/*
 			try{
 				
 				InputStream in = client.getInputStream();
 				Scanner sc = new Scanner( in );
 				nick = sc.next();
-				
 				
 				//sc.close();
 				
@@ -89,19 +88,20 @@ public class ChatterServer
 			catch ( Exception e )
 			{
 				System.out.println("Problem in ServerListens Constructor: " + e);
-			}
+			}*/
 			
 		}
 		
 		@Override
 		public void run()
 		{
-			System.out.println("in run");
+			
 			//everytime this runs, that object.start
 			try{
 				
 				while(clientOnline)
 				{
+					
 					//InputStream in = client.getInputStream();
 					//Scanner sc = new Scanner( in );
 					
