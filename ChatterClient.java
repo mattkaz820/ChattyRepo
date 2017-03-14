@@ -14,8 +14,12 @@ public class ChatterClient
 	String nickname;
 	Socket sock;
 	
+	public void setNickname(String n ) {nickname = n;}
+	
+	
 	public ChatterClient(String h, int p) throws IOException
 	{
+		System.out.println(h+ "   "+ p);
 		
 		try
 		{
@@ -37,18 +41,46 @@ public class ChatterClient
 	
 	//waits for the user to type something and when "enter" is hit it sends
 	//sends the information to a ServerListens object
-	public void getUserInput()
+	public String getUserInput()
 	{
+		Scanner scan = new Scanner(System.in);
+		String input = scan.nextLine(); 
 		
+		String cmd = input.substring(0, input.indexOf(' ')-1);  
+		if(cmd.equals("/nick"))
+		{
+			setNickname(input.substring(input.indexOf(' ')));
+		}
+		
+		scan.close();
+		
+		return input;
 	}
+	
 	
 	//listens for responses from other clients
 	//acts as a separate thread
 	//can extend thread or implement runnable
 	public class ClientListens extends Thread
 	{
-		
-	}
+		try
+		{		
+			InputStream in = sock.getInputStream();
+			BufferedReader bin = new BufferedReader( new InputStreamReader(in) );
+			String line;
+			line = bin.readLine();
+			while( (line=bin.readLine()) != null )
+			{ 
+				System.out.println(nickname+ ":" + " " + line);
+	        }	
+	         	
+	         sock.close();
+	      }	
+	      catch ( IOException ioe )
+	      { 	
+	    	  System.err.println(ioe); 
+	      }	
+	}	
 	
 	public static void main( String[] args ) throws RuntimeException, IOException // throws IOException
 	   {
@@ -57,5 +89,5 @@ public class ChatterClient
 		   
 	   }
 	
-	
+		
 }
