@@ -28,7 +28,7 @@ public class ChatterServer
 			answerThePhone();
 			//Add client obj to LL
 		}
-		sock.close();
+		//sock.close();
 	}
 	
 	public static void main( String[] args ) throws IOException //args[0] holds the one command line arg we require
@@ -126,13 +126,13 @@ public class ChatterServer
 					
 					sc.close();
 				}
-				client.close();
+				
 			
 			
 			}
 			catch( IOException e )
 			{
-				System.out.println("Problem in ServerListens Constructor: " + e);
+				System.out.println("Problem in ServerListens run(): " + e);
 			}
 			
 		}
