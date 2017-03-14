@@ -33,7 +33,7 @@ public class ChatterClient
 			
 			
 			nickname = bin.readLine();
-			sock.close();
+			
 		}
 		catch( IOException ioe )
 		{ System.err.println(ioe); }
