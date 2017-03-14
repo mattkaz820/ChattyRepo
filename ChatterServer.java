@@ -149,7 +149,7 @@ public class ChatterServer
 		for( int i = 0; i < size; i++ )
 		{
 			PrintWriter pout = new PrintWriter( chatting.get(i).client.getOutputStream(), true );
-			pout.println( msg );
+			pout.println( sender + ": " + msg );
 		}
 		
 	}
