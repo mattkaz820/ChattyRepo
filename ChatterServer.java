@@ -53,7 +53,7 @@ public class ChatterServer
 	            
 	            
 	      }
-	      catch( Exception e ) { System.err.println("DateServer: error = "+e); }      
+	      catch( Exception e ) { System.err.println("AnswerThePhone: error = "+e); }      
 	      System.exit(0);
 	}
 
@@ -69,7 +69,18 @@ public class ChatterServer
 		public ServerListens(Socket c)
 		{
 			client = c;
-			
+			System.out.println("hey");
+			try{
+				InputStream in = client.getInputStream();
+				Scanner sc = new Scanner( in );
+				nick = sc.next();
+				
+				System.out.println(nick);
+			}
+			catch( IOException e )
+			{
+				System.out.println("Problem in ServerListens Constructor: " + e);
+			}
 			
 		}
 		
@@ -124,7 +135,6 @@ public class ChatterServer
 	//needs to be synchronized
 	//must go to every client
 	//opens a Writer to write to ClientListens
-	
 	public synchronized void tellOthers(String sender, String msg)
 	{
 		
