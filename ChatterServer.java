@@ -54,7 +54,7 @@ public class ChatterServer
 	            
 	      }
 	      catch( Exception e ) { System.err.println("AnswerThePhone: error = "+e); }      
-	      System.exit(0);
+	      
 	}
 
 	
