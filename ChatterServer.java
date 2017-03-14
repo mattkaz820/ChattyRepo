@@ -104,7 +104,7 @@ public class ChatterServer
 					InputStream in = client.getInputStream();
 					Scanner sc = new Scanner( in );
 					
-					String first = sc.next();
+					String first = sc.nextLine();
 					
 					if( first.equals("/nick") )
 					{

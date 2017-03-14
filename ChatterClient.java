@@ -53,17 +53,19 @@ public class ChatterClient
 	
 	//waits for the user to type something and when "enter" is hit it sends
 	//sends the information to a ServerListens object
-	public String getUserInput()
+	public String getUserInput() throws IOException
 	{
-		Scanner scan = new Scanner(System.in);
-		String input = scan.nextLine(); 
+		InputStreamReader in = new InputStreamReader(System.in); //reads from user
+		BufferedReader bin = new BufferedReader( in ); //makes new BR for it
+		
+		String input = bin.readLine();
+		
 		
 		if(input.contains("/nick"))
 		{
 			setNickname(input.substring(input.indexOf(' ')));
 		}
 		
-		scan.close();
 		
 		return input;
 	}
