@@ -70,25 +70,8 @@ public class ChatterServer
 		//reads the nickname of the client
 		public ServerListens(Socket c)
 		{
+			System.out.println("in serverListens constructor");
 			client = c;
-			
-			try{
-				
-				InputStream in = client.getInputStream();
-				Scanner sc = new Scanner( in );
-				nick = sc.next();
-				
-				//sc.close();
-				
-			}
-			catch( IOException e )
-			{
-				System.out.println("IO Problem in ServerListens Constructor: " + e);
-			}
-			catch ( Exception e )
-			{
-				System.out.println("Problem in ServerListens Constructor: " + e);
-			}
 			
 		}
 		
@@ -99,19 +82,27 @@ public class ChatterServer
 			//everytime this runs, that object.start
 			try{
 				
+				InputStream in = client.getInputStream();
+				Scanner sc = new Scanner( in );
+				nick = sc.next();
+				System.out.println("nickname is " + nick);
+				
 				while(clientOnline)
 				{
+					System.out.println("In clientonline loop");
 					
-					//InputStream in = client.getInputStream();
-					//Scanner sc = new Scanner( in );
+
+					String first = sc.next();
 					
-					//String first = sc.nextLine();
+					System.out.println("first is " + first);
+					
+					
 					//System.out.println("this is first: " + first);
 					
-					InputStreamReader in = new InputStreamReader(client.getInputStream()); //reads from user
-					BufferedReader bin = new BufferedReader( in ); //makes new BR for it
+					//InputStreamReader in = new InputStreamReader(client.getInputStream()); //reads from user
+					//BufferedReader bin = new BufferedReader( in ); //makes new BR for it
 					
-					String first = bin.readLine();
+					//String first = bin.readLine();
 					
 					if( first.contains("/nick") )
 					{
