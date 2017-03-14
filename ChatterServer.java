@@ -20,7 +20,7 @@ public class ChatterServer
 		portNum = Integer.parseInt(p); 
 		sock = new ServerSocket(portNum); //initializes and makes a socket
 		chatting = new LinkedList<ServerListens>();
-		
+		System.out.println("Server starting ...");
 		//listen for connections
 		while(stillChattin)
 		{
@@ -41,7 +41,6 @@ public class ChatterServer
 	//this function opens the socket and waits for the call
 	public void answerThePhone()
 	{
-		 System.out.println("date server starting ...");
 	      try
 	      { 
 	            Socket client = sock.accept(); // this blocks until a client calls  (waiting)     
@@ -62,17 +61,16 @@ public class ChatterServer
 	{
 		Socket client; //Socket to hold the client info
 		String nick; //Name of client
-		Boolean thing;
+		Boolean clientOnline = true;
 		
 		
 		public ServerListens(Socket c)
 		{
 			client = c;
-			thing = true;
 			
 			try{
 			
-				while(thing)
+				while(clientOnline)
 				{
 				
 				}
