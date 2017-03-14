@@ -81,10 +81,11 @@ public class ChatterServer
 			
 			//everytime this runs, that object.start
 			try{
-				
+				System.out.println("in run function");
 				InputStream in = client.getInputStream();
 				Scanner sc = new Scanner( in );
 				nick = sc.next();
+				
 				System.out.println("nickname is " + nick);
 				
 				while(clientOnline)
@@ -104,21 +105,26 @@ public class ChatterServer
 					
 					//String first = bin.readLine();
 					
-					if( first.contains("/nick") )
+					if( first.equals("/nick") )
 					{
-					//	nick = sc.next();
+						System.out.println("In nick if");
+						nick = sc.next();
 					}
-					else if( first.contains("/dm") )
+					else if( first.equals("/dm") )
 					{
-						//tellOnePerson( nick, sc.next(), sc.nextLine() );
+						System.out.println("In dm if");
+						tellOnePerson( nick, sc.next(), sc.nextLine() );
 					}
-					else if( first.contains("/quit") )
+					else if( first.equals("/quit") )
 					{
+						System.out.println("In quit if");
 						clientOnline = false;
 					}
 					else
 					{
-						tellOthers( nick, first);
+						System.out.println("In tellOthers if");
+						String all = first + " " + sc.nextLine();
+						tellOthers( nick, all);
 					}
 					
 					
