@@ -90,7 +90,7 @@ public class ChatterClient
 					System.out.println(nickname+ ":" + " " + line);
 		        }	
 		         	
-		         sock.close();
+		         //sock.close();
 		      }	
 		      catch ( IOException ioe )
 		      { 	
