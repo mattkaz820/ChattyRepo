@@ -63,21 +63,29 @@ public class ChatterServer
 	{
 		Socket client; //Socket to hold the client info
 		String nick; //Name of client
-		Boolean clientOnline = true;
+		Boolean clientOnline = true; //used for while loop
 		
 		
+		//constructor takes the Socket
+		//reads the nickname of the client
 		public ServerListens(Socket c)
 		{
 			client = c;
-			System.out.println("hey");
+			
 			try{
+				
 				InputStream in = client.getInputStream();
 				Scanner sc = new Scanner( in );
 				nick = sc.next();
 				
-				System.out.println(nick);
+				
+				sc.close();
 			}
 			catch( IOException e )
+			{
+				System.out.println("IO Problem in ServerListens Constructor: " + e);
+			}
+			catch ( Exception e )
 			{
 				System.out.println("Problem in ServerListens Constructor: " + e);
 			}
@@ -135,8 +143,14 @@ public class ChatterServer
 	//needs to be synchronized
 	//must go to every client
 	//opens a Writer to write to ClientListens
-	public synchronized void tellOthers(String sender, String msg)
+	public synchronized void tellOthers(String sender, String msg) throws IOException
 	{
+		int size = chatting.size();
+		for( int i = 0; i < size; i++ )
+		{
+			PrintWriter pout = new PrintWriter( chatting.get(i).client.getOutputStream(), true );
+			pout.println( msg );
+		}
 		
 	}
 	
