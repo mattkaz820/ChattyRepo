@@ -154,10 +154,26 @@ public class ChatterServer
 		for( int i = 0; i < chatting.size(); i++ )
 		{
 			PrintWriter pout = new PrintWriter( chatting.get(i).client.getOutputStream(), true );
+			System.out.println("in for loop delivering to: " + chatting.get(i).nick);
+			pout.write(sender + ": " + msg);
+			pout.flush();
 			pout.println( sender + ": " + msg );
 			System.out.println("test: " + sender + ": " + msg);
 		}
 	}	
+	
+	/*
+	OutputStream out = sock.getOutputStream();
+    BufferedWriter bout = new BufferedWriter( new OutputStreamWriter( out ) );
+    bout.write(nickname + '\n');
+    bout.flush();	
+    while(!sock.isClosed())
+    {
+   	 bout.write(getUserInput() + '\n');
+   	 bout.flush();
+    }
+	
+	*/
 		
 	//function that will direct message only one other client by nickname
 	public synchronized void tellOnePerson(String sender, String name, String msg)

@@ -42,6 +42,9 @@ public class ChatterClient
 	         {
 	        	 bout.write(getUserInput() + '\n');
 	        	 bout.flush();
+	        	 InputStreamReader in2 = new InputStreamReader(System.in); //reads from user
+	        	 BufferedReader bin2 = new BufferedReader( in2 );
+	        	 System.out.println( "hey" +bin2.readLine());
 	         }
 	         
 	         
