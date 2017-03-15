@@ -191,9 +191,21 @@ public class ChatterServer
 	*/
 		
 	//function that will direct message only one other client by nickname
-	public synchronized void tellOnePerson(String sender, String name, String msg)
+	public synchronized void tellOnePerson(String sender, String name, String msg) throws IOException
 	{
-		
+		for( int i = 0; i < chatting.size(); i++ )
+		{
+			if( chatting.get(i).nick.equals(name) )
+			{
+				PrintWriter pout = new PrintWriter( chatting.get(i).client.getOutputStream(), true );
+				System.out.println("in for loop delivering to: " + chatting.get(i).nick);
+				pout.write(sender + ": " + msg +'\n');
+				pout.flush();
+				//pout.println( sender + ": " + msg );
+				System.out.println("test: " + sender + ": " + msg);
+			}
+			
+		}
 	}
 
 }
