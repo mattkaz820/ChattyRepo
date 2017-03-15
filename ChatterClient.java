@@ -9,8 +9,8 @@ import java.net.Socket;
 
 public class ChatterClient
 {
-	//BufferedReader in;
-	//PrintWriter out;
+	InputStreamReader in = new InputStreamReader(System.in); //reads from user
+	BufferedReader bin = new BufferedReader( in ); //makes new BR for it
 	//holds the client's nickname
 	String nickname;
 	Socket sock;
@@ -28,8 +28,6 @@ public class ChatterClient
 			
 			//prompt for nickname
 			System.out.println("What is your preferred nickname?");
-			InputStreamReader in = new InputStreamReader(System.in); //reads from user
-			BufferedReader bin = new BufferedReader( in ); //makes new BR for it
 			
 			
 			nickname = bin.readLine();
@@ -42,9 +40,7 @@ public class ChatterClient
 	         {
 	        	 bout.write(getUserInput() + '\n');
 	        	 bout.flush();
-	        	 InputStreamReader in2 = new InputStreamReader(System.in); //reads from user
-	        	 BufferedReader bin2 = new BufferedReader( in2 );
-	        	 System.out.println( "hey" +bin2.readLine());
+	        	 System.out.println( "hey" +bin.readLine());
 	         }
 	         
 	         
@@ -58,8 +54,7 @@ public class ChatterClient
 	//sends the information to a ServerListens object
 	public String getUserInput() throws IOException
 	{
-		InputStreamReader in = new InputStreamReader(System.in); //reads from user
-		BufferedReader bin = new BufferedReader( in ); //makes new BR for it
+		
 		
 		String input = bin.readLine();
 		
@@ -86,11 +81,11 @@ public class ChatterClient
 		{
 			try
 			{		
-				InputStream in = sock.getInputStream();
-				BufferedReader bin = new BufferedReader( new InputStreamReader(in) );
+				InputStream instream = sock.getInputStream();
+				BufferedReader br = new BufferedReader( new InputStreamReader(instream) );
 				String line;
-				line = bin.readLine();
-				while( (line=bin.readLine()) != null )
+				line = br.readLine();
+				while( (line=br.readLine()) != null )
 				{ 
 					System.out.println(nickname+ ":" + " " + line);
 		        }	
