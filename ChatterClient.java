@@ -14,6 +14,7 @@ public class ChatterClient
 	//holds the client's nickname
 	String nickname;
 	Socket sock;
+	Boolean timeToQuit = false; //tells when to quit
 	
 	public void setNickname(String n ) {nickname = n;}
 	
@@ -25,25 +26,25 @@ public class ChatterClient
 		try
 		{
 			sock = new Socket(h,p);
+			ClientListens listening = new ClientListens();
+			listening.start(); //makes this listen to others
 			
 			//prompt for nickname
 			System.out.println("What is your preferred nickname?");
 			
+			nickname = bin.readLine(); //reads the nickname and stores it
 			
-			nickname = bin.readLine();
-			
-			 OutputStream out = sock.getOutputStream();
-	         BufferedWriter bout = new BufferedWriter( new OutputStreamWriter( out ) );
-	         bout.write(nickname + '\n');
-	         bout.flush();	
-	         while(!sock.isClosed())
-	         {
-	        	 bout.write(getUserInput() + '\n');
-	        	 bout.flush();
-	        	 System.out.println( "hey" +bin.readLine());
-	         }
+			OutputStream out = sock.getOutputStream();
+	        BufferedWriter bout = new BufferedWriter( new OutputStreamWriter( out ) );
+	        bout.write(nickname + '\n');
+	        bout.flush();	
+	        while(!timeToQuit) //tells when to quit
+	        {
+	       	 	bout.write(getUserInput() + '\n');
+	       	 	bout.flush();
+	        }
 	         
-	         
+	        sock.close();
 		}
 		catch( IOException ioe )
 		{ System.err.println(ioe); }
@@ -64,6 +65,11 @@ public class ChatterClient
 		{
 			setNickname(input.substring(input.indexOf(' ')));
 		}
+		else if(input.contains("/quit"))
+		{
+			timeToQuit = true;
+			System.out.println("TimeToQuit is true now");
+		}
 		
 		
 		return input;
@@ -75,6 +81,11 @@ public class ChatterClient
 	//can extend thread or implement runnable
 	public class ClientListens extends Thread
 	{
+		
+		public ClientListens()
+		{
+			//this is supposed to be empty
+		}
 	
 		@Override
 		public void run()
@@ -84,11 +95,11 @@ public class ChatterClient
 				InputStream instream = sock.getInputStream();
 				BufferedReader br = new BufferedReader( new InputStreamReader(instream) );
 				String line;
-				line = br.readLine();
-				while( (line=br.readLine()) != null )
+				while( (line=br.readLine()) != null ) //reads in the line to the reader
 				{ 
-					System.out.println(nickname+ ":" + " " + line);
+					System.out.println(line); //prints the line on the screen
 		        }	
+				
 		         	
 		         //sock.close();
 		      }	
