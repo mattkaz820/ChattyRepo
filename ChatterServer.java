@@ -1,5 +1,7 @@
 package ChattyRepo;
 //ChatterServer.java
+//Made by Matt Kaz, Darren Fahy, and Max Drew
+
 
 import java.net.*;
 import java.util.*;
