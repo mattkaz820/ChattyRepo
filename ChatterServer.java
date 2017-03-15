@@ -155,9 +155,9 @@ public class ChatterServer
 		{
 			PrintWriter pout = new PrintWriter( chatting.get(i).client.getOutputStream(), true );
 			System.out.println("in for loop delivering to: " + chatting.get(i).nick);
-			pout.write(sender + ": " + msg);
+			pout.write(sender + ": " + msg +'\n');
 			pout.flush();
-			pout.println( sender + ": " + msg );
+			//pout.println( sender + ": " + msg );
 			System.out.println("test: " + sender + ": " + msg);
 		}
 	}	
