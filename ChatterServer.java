@@ -48,7 +48,8 @@ public class ChatterServer
 	            Socket client = sock.accept(); // this blocks until a client calls  (waiting)     
 	            System.out.println("Server: accepts client connection");
 	            
-	            ServerListens current = new ServerListens( client );
+	            int currentIndex = chatting.size();
+	            ServerListens current = new ServerListens( client, currentIndex );
 	            chatting.add(current);
 	            System.out.println("Size of chatting: "+ chatting.size());
 	            current.start();     
@@ -65,15 +66,16 @@ public class ChatterServer
 		Socket client; //Socket to hold the client info
 		String nick; //Name of client
 		Boolean clientOnline = true; //used for while loop
+		int index; //holds the index of chatting for this
 		
 		
 		//constructor takes the Socket
 		//reads the nickname of the client
-		public ServerListens(Socket c)
+		public ServerListens(Socket c, int i)
 		{
 			System.out.println("in serverListens constructor");
 			client = c;
-			
+			index = i;
 		}
 		
 		@Override
@@ -119,13 +121,19 @@ public class ChatterServer
 					else if( first.contains("/quit") )
 					{
 						System.out.println("In quit if");
-						clientOnline = false;
+						clientOnline = false; //tells to exit while loop
+						chatting.remove(index); //remove this object from LL
+						
+						for(int j = index; j < chatting.size(); j++  )
+						{
+							chatting.get(j).index--; //decrease other indices by 1
+						}
 					}
 					else
 					{
 						System.out.println("In tellOthers if");
 						String all = first + " " + sc.nextLine();
-						tellOthers( nick, all);
+						tellOthers( nick, all, index);
 					}
 					
 					
@@ -149,16 +157,23 @@ public class ChatterServer
 	//needs to be synchronized
 	//must go to every client
 	//opens a Writer to write to ClientListens
-	public synchronized void tellOthers(String sender, String msg) throws IOException
+	public synchronized void tellOthers(String sender, String msg, int index) throws IOException
 	{
 		for( int i = 0; i < chatting.size(); i++ )
 		{
-			PrintWriter pout = new PrintWriter( chatting.get(i).client.getOutputStream(), true );
-			System.out.println("in for loop delivering to: " + chatting.get(i).nick);
-			pout.write(sender + ": " + msg +'\n');
-			pout.flush();
-			//pout.println( sender + ": " + msg );
-			System.out.println("test: " + sender + ": " + msg);
+			if(i == index)
+			{
+				//do not send it
+			}
+			else
+			{
+				PrintWriter pout = new PrintWriter( chatting.get(i).client.getOutputStream(), true );
+				System.out.println("in for loop delivering to: " + chatting.get(i).nick);
+				pout.write(sender + ": " + msg +'\n');
+				pout.flush();
+				//pout.println( sender + ": " + msg );
+				System.out.println("test: " + sender + ": " + msg);
+			}
 		}
 	}	
 	
