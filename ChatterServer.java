@@ -51,7 +51,7 @@ public class ChatterServer
 	            int currentIndex = chatting.size();
 	            ServerListens current = new ServerListens( client, currentIndex );
 	            chatting.add(current);
-	            System.out.println("Size of chatting: "+ chatting.size());
+	            //System.out.println("Size of chatting: "+ chatting.size());
 	            current.start();     
 	            
 	      }
@@ -71,9 +71,10 @@ public class ChatterServer
 		
 		//constructor takes the Socket
 		//reads the nickname of the client
+		//gets the index in chatting of this object
 		public ServerListens(Socket c, int i)
 		{
-			System.out.println("in serverListens constructor");
+			//System.out.println("in serverListens constructor");
 			client = c;
 			index = i;
 		}
@@ -84,43 +85,37 @@ public class ChatterServer
 			
 			//everytime this runs, that object.start
 			try{
-				System.out.println("in run function");
+				//System.out.println("in run function");
 				InputStream in = client.getInputStream();
 				Scanner sc = new Scanner( in );
 				nick = sc.next();
 				
-				System.out.println("nickname is " + nick);
+				//System.out.println("nickname is " + nick);
 				
 				while(clientOnline)
 				{
-					System.out.println("In clientonline loop");
+					//System.out.println("In clientonline loop");
 					
 
 					String first = sc.next();
 					
-					System.out.println("first is " + first);
+					//System.out.println("first is " + first);
 					
 					
-					//System.out.println("this is first: " + first);
 					
-					//InputStreamReader in = new InputStreamReader(client.getInputStream()); //reads from user
-					//BufferedReader bin = new BufferedReader( in ); //makes new BR for it
-					
-					//String first = bin.readLine();
-					
-					if( first.contains("/nick") )
+					if( first.contains("/nick") ) //to change the nickname
 					{
-						System.out.println("In nick if");
+						//System.out.println("In nick if");
 						nick = sc.next();
 					}
-					else if( first.contains("/dm") )
+					else if( first.contains("/dm") ) //to tellOnePerson 
 					{
-						System.out.println("In dm if");
+						//System.out.println("In dm if");
 						tellOnePerson( nick, sc.next(), sc.nextLine() );
 					}
-					else if( first.contains("/quit") )
+					else if( first.contains("/quit") ) //to quit
 					{
-						System.out.println("In quit if");
+						//System.out.println("In quit if");
 						clientOnline = false; //tells to exit while loop
 						chatting.remove(index); //remove this object from LL
 						
@@ -129,17 +124,18 @@ public class ChatterServer
 							chatting.get(j).index--; //decrease other indices by 1
 						}
 					}
-					else
+					else //to tellOthers
 					{
-						System.out.println("In tellOthers if");
+						//System.out.println("In tellOthers if");
 						String all = first + " " + sc.nextLine();
 						tellOthers( nick, all, index);
 					}
 					
 					
 					
-					//sc.close();
+					
 				}
+				sc.close();
 				
 			
 			
@@ -168,41 +164,30 @@ public class ChatterServer
 			else
 			{
 				PrintWriter pout = new PrintWriter( chatting.get(i).client.getOutputStream(), true );
-				System.out.println("in for loop delivering to: " + chatting.get(i).nick);
+				//System.out.println("in for loop delivering to: " + chatting.get(i).nick);
 				pout.write(sender + ": " + msg +'\n');
 				pout.flush();
-				//pout.println( sender + ": " + msg );
-				System.out.println("test: " + sender + ": " + msg);
+				//System.out.println("test: " + sender + ": " + msg);
 			}
 		}
 	}	
 	
-	/*
-	OutputStream out = sock.getOutputStream();
-    BufferedWriter bout = new BufferedWriter( new OutputStreamWriter( out ) );
-    bout.write(nickname + '\n');
-    bout.flush();	
-    while(!sock.isClosed())
-    {
-   	 bout.write(getUserInput() + '\n');
-   	 bout.flush();
-    }
 	
-	*/
 		
 	//function that will direct message only one other client by nickname
+	//takes the sender's name, the dm's name and the message
 	public synchronized void tellOnePerson(String sender, String name, String msg) throws IOException
 	{
-		for( int i = 0; i < chatting.size(); i++ )
+		for( int i = 0; i < chatting.size(); i++ ) //go through all the clients
 		{
-			if( chatting.get(i).nick.equals(name) )
+			if( chatting.get(i).nick.equals(name) ) //check for the right nickname
 			{
 				PrintWriter pout = new PrintWriter( chatting.get(i).client.getOutputStream(), true );
-				System.out.println("in for loop delivering to: " + chatting.get(i).nick);
-				pout.write(sender + ": " + msg +'\n');
+				//System.out.println("in for loop delivering to: " + chatting.get(i).nick);
+				
+				pout.write(sender + ": " + msg +'\n'); //send the message
 				pout.flush();
-				//pout.println( sender + ": " + msg );
-				System.out.println("test: " + sender + ": " + msg);
+				//System.out.println("test: " + sender + ": " + msg);
 			}
 			
 		}
