@@ -11,6 +11,7 @@ public class ChatterServer
 	//this object stores the addresses of every ServerListens class
 	//that gets instantiated
 	LinkedList<ServerListens> chatting;
+	
 	ServerSocket sock; 
 	int portNum;
 	boolean stillChattin = true;
@@ -48,9 +49,9 @@ public class ChatterServer
 	            System.out.println("Server: accepts client connection");
 	            
 	            ServerListens current = new ServerListens( client );
-	            current.start();
-	            
-	            
+	            chatting.add(current);
+	            System.out.println("Size of chatting: "+ chatting.size());
+	            current.start();     
 	            
 	      }
 	      catch( Exception e ) { System.err.println("AnswerThePhone: error = "+e); }      
@@ -150,16 +151,14 @@ public class ChatterServer
 	//opens a Writer to write to ClientListens
 	public synchronized void tellOthers(String sender, String msg) throws IOException
 	{
-		System.out.println("in tellothers");
-		int size = chatting.size();
-		for( int i = 0; i < size; i++ )
+		for( int i = 0; i < chatting.size(); i++ )
 		{
 			PrintWriter pout = new PrintWriter( chatting.get(i).client.getOutputStream(), true );
 			pout.println( sender + ": " + msg );
+			System.out.println("test: " + sender + ": " + msg);
 		}
+	}	
 		
-	}
-	
 	//function that will direct message only one other client by nickname
 	public synchronized void tellOnePerson(String sender, String name, String msg)
 	{
